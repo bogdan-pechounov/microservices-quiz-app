@@ -1,0 +1,19 @@
+apiVersion: skaffold/v4beta2
+kind: Config
+metadata:
+  name: microservices-quiz-app
+build:
+  local:
+    push: false
+  artifacts:
+    - image: bogdan-pechounov/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: src/**/*.js
+            dest: .
+manifests:
+  rawYaml:
+  - auth/k8s/*.yml

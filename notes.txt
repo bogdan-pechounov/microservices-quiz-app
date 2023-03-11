@@ -1,0 +1,2 @@
+minikube dashboard
+minikube service auth-srv 
