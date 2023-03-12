@@ -1,2 +1,11 @@
 minikube dashboard
 minikube service auth-srv 
+
+minikube addons enable ingress
+kubectl apply -f ingress-srv.yml
+kubectl get ingress --watch
+C:\Windows\System32\drivers\etc\hosts.
+
+# Fix for ingress not working
+minikube tunnel
+127.0.0.1 hello-world.info

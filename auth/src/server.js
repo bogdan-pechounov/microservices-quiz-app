@@ -3,7 +3,11 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send('hi8')
+  res.send('hi9')
+})
+
+app.get('/api/users', (req, res) => {
+  res.send('Users')
 })
 
 app.listen(3000, () => {

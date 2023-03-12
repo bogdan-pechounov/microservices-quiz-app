@@ -26,8 +26,7 @@ metadata:
   name: auth-srv
 spec:
   selector:
-    app: auth-depl-label
-  type: LoadBalancer
+    app: auth-pod-label
   ports:
   - protocol: TCP
     port: 3000
