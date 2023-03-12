@@ -3,10 +3,8 @@ kind: Config
 metadata:
   name: microservices-quiz-app
 build:
-  local:
-    push: false
   artifacts:
-    - image: bogdan-pechounov/auth
+    - image: auth-img
       context: auth
       docker:
         dockerfile: Dockerfile

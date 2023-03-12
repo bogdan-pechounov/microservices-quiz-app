@@ -3,7 +3,7 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send('hi9')
+  res.send('hi10')
 })
 
 app.get('/api/users', (req, res) => {

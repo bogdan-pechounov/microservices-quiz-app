@@ -1,0 +1,15 @@
+steps:
+- id: 'Skaffold run'
+  name: 'gcr.io/summer-monument-380414/skaffold:alpha' # https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/skaffold
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |
+      gcloud container clusters get-credentials cluster-1 --region us-central1-a --project summer-monument-380414
+      if [ "$BRANCH_NAME" == "master" ]
+      then
+        skaffold run
+      fi
