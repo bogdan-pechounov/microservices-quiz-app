@@ -9,3 +9,8 @@ C:\Windows\System32\drivers\etc\hosts.
 # Fix for ingress not working
 minikube tunnel
 127.0.0.1 hello-world.info
+
+gcloud config get-value project
+gcloud config set project disco-ethos-380514
+gcloud builds submit --region=us-central1 --project=disco-ethos-380514 --config cloudbuild.yaml
+gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1,_CLUSTER=autopilot-cluster-1 .

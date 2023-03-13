@@ -1,15 +1,25 @@
+# steps:
+#   ## auth
+#   # build the container image
+# - name: "gcr.io/cloud-builders/docker"
+#   args: ["build", "-t", "gcr.io/disco-ethos-380514/auth-img:1", "auth"]
+#   # push container image
+# - name: "gcr.io/cloud-builders/docker"
+#   args: ["push", "gcr.io/disco-ethos-380514/auth-img:1"]
+#   # deploy container image to GKE
+# - name: "gcr.io/cloud-builders/gke-deploy"
+#   args:
+#   - run
+#   - --filename=auth/k8s
+#   - --image=gcr.io/disco-ethos-380514/auth-img:1
+#   - --location=us-central1
+#   - --cluster=autopilot-cluster-1
 steps:
-- id: 'Skaffold run'
-  name: 'gcr.io/summer-monument-380414/skaffold:alpha' # https://github.com/GoogleCloudPlatform/cloud-builders-community/tree/master/skaffold
-  env:
-  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-  - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-1'
+- id: 'Deploy application to cluster'
+  name: 'gcr.io/k8s-skaffold/skaffold:v2.2.0'
   entrypoint: 'bash'
   args:
-    - '-c'
-    - |
-      gcloud container clusters get-credentials cluster-1 --region us-central1-a --project summer-monument-380414
-      if [ "$BRANCH_NAME" == "master" ]
-      then
-        skaffold run
-      fi
+  - '-c'
+  - >
+    gcloud container clusters get-credentials --zone=$_ZONE $_CLUSTER;
+    skaffold run -f=skaffold.yaml --default-repo=gcr.io/$PROJECT_ID;
