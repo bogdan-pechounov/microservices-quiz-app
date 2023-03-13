@@ -1,5 +1,5 @@
 const request = require('supertest')
-const app = require('../src/app.js')
+const app = require('../app.js')
 
 describe('GET /', () => {
   test('responds with a default message', async () => {
