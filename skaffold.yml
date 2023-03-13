@@ -12,6 +12,11 @@ build:
         manual:
           - src: src/**/*.js
             dest: .
+test:
+  - image: auth-img
+    context: auth
+    custom:
+      - command: npm run test
 manifests:
   rawYaml:
   - auth/k8s/*.yml
