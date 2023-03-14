@@ -3,12 +3,13 @@ kind: Ingress
 metadata:
   name: ingress-service
   annotations:
+    kubernetes.io/ingress.class : "gce"
     nginx.ingress.kubernetes.io/rewrite-target: / # rewrite /api/users/signup to simply /signup
     nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
-  ingressClassName: nginx
+  # ingressClassName: nginx
   rules:
-    - host: quiz-app.com
+    - # host: quiz-app.com
       http:
         paths:
           # auth service
