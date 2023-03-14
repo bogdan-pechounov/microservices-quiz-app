@@ -1,49 +1,49 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: ingress-service
-#   annotations:
-#     nginx.ingress.kubernetes.io/rewrite-target: / # rewrite /api/users/signup to simply /signup
-#     nginx.ingress.kubernetes.io/use-regex: 'true'
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#     - # host: quiz-app.com
-#       http:
-#         paths:
-#           # auth service
-#           - path: /api/users/?(.*)
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: auth-srv
-#                 port:
-#                   number: 3000
-#           # default to react client
-#           - path: /?(.*)
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: auth-srv
-#                 port:
-#                   number: 3000
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: ingress-service
   annotations:
-    kubernetes.io/ingress.class : "gce"
+    nginx.ingress.kubernetes.io/rewrite-target: / # rewrite /api/users/signup to simply /signup
+    nginx.ingress.kubernetes.io/use-regex: 'true'
 spec:
+  ingressClassName: nginx
   rules:
     - # host: quiz-app.com
       http:
         paths:
           # auth service
-          - path: /
+          - path: /api/users/?(.*)
             pathType: Prefix
             backend:
               service:
                 name: auth-srv
                 port:
                   number: 3000
+          # default to react client
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: auth-srv
+                port:
+                  number: 3000
+
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress-service
+#   annotations:
+#     kubernetes.io/ingress.class : "gce"
+# spec:
+#   rules:
+#     - # host: quiz-app.com
+#       http:
+#         paths:
+#           # auth service
+#           - path: /
+#             pathType: Prefix
+#             backend:
+#               service:
+#                 name: auth-srv
+#                 port:
+#                   number: 3000
