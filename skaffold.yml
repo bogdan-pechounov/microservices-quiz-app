@@ -21,3 +21,4 @@ manifests:
   rawYaml:
   - auth/k8s/*.yml
   - ingress-srv.yml
+
