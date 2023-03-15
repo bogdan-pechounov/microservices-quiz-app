@@ -3,10 +3,10 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send('hi10')
+  res.send('hi11')
 })
 
-app.get('/api/users', (req, res) => {
+app.get('/users', (req, res) => {
   res.send('Users')
 })
 
