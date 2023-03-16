@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: react-client-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: react-client-pod-label
+  template:
+    metadata:
+      labels:
+        app: react-client-pod-label
+    spec:
+      containers:
+      - name: react-client-pod
+        image: react-client-img
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: react-client-srv
+spec:
+  selector:
+    app: react-client-pod-label
+  ports:
+  - protocol: TCP
+    port: 5173
+    targetPort: 5173

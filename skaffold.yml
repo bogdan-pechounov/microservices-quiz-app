@@ -12,6 +12,14 @@ build:
         manual:
           - src: src/**/*.js
             dest: .
+    - image: react-client-img
+      context: react-client
+      docker:
+        dockerfile: Dockerfile
+      # sync:
+      #   manual:
+      #     - dest: src
+      #       src: .
 # test:
 #   - image: auth-img
 #     context: auth
@@ -20,5 +28,6 @@ build:
 manifests:
   rawYaml:
   - auth/k8s/*.yml
+  - react-client/k8s/*.yml
   - ingress-srv.yml
 
