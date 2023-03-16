@@ -16,10 +16,10 @@ build:
       context: react-client
       docker:
         dockerfile: Dockerfile
-      # sync:
-      #   manual:
-      #     - dest: src
-      #       src: .
+      sync:
+        manual:
+          - dest: src/**/*
+            src: .
 # test:
 #   - image: auth-img
 #     context: auth
