@@ -10,9 +10,9 @@ spec:
       storage: 50Mi
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: auth-mongo-depl
+  name: auth-mongo-set
 spec:
   selector:
     matchLabels:
