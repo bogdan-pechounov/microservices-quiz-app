@@ -17,6 +17,7 @@ spec:
   selector:
     matchLabels:
       app: auth-mongo-pod-label
+  serviceName: auth-mongo-srv
   template:
     metadata:
       labels:
