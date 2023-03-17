@@ -4,7 +4,7 @@ metadata:
   name: auth-mongo-pvc
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 50Mi
@@ -23,15 +23,15 @@ spec:
         app: auth-mongo-pod-label
     spec:
       containers:
-        - name: mongo
+        - name: auth-mongo-pod
           image: mongo
           ports:
             - containerPort: 27017
           volumeMounts:
-            - name: storage
+            - name: auth-mongo-volume
               mountPath: /data/db
       volumes:
-        - name: storage
+        - name: auth-mongo-volume
           persistentVolumeClaim:
             claimName: auth-mongo-pvc
 ---
