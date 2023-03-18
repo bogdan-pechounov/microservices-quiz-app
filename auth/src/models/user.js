@@ -13,12 +13,12 @@ const userSchema = mongoose.Schema(
   },
   {
     toJSON: {
-      transform(doc, ret) {
-        console.log(doc, ret)
-        // ret.id = ret._id
-        // delete ret._id
-        // delete ret.password
-        // delete ret.__v
+      //cleanup returned json
+      transform(_, ret) {
+        ret.id = ret._id
+        delete ret._id
+        delete ret.password
+        delete ret.__v
       },
     },
   }
