@@ -29,4 +29,25 @@ describe('SignUp', () => {
       .expect(201)
     expect(response.headers['set-cookie']).toBeDefined()
   })
+
+  test('validates username min length', async () => {
+    const user = { username: 'Use', password: 'password' }
+    await request(app).post('/api/auth/signup').send(user).expect(400)
+  })
+
+  test('validates username max length', async () => {
+    const user = { username: 'aaaaaaaaaaaaaaaa', password: 'password' }
+    await request(app).post('/api/auth/signup').send(user).expect(400)
+  })
+
+  test('validates password', async () => {
+    await request(app)
+      .post('/api/auth/signup')
+      .send({ username: 'User', password: 'pass' })
+      .expect(400)
+    await request(app)
+      .post('/api/auth/signup')
+      .send({ username: 'User', password: 'asdadfjldkajdklkjfdka' })
+      .expect(400)
+  })
 })
