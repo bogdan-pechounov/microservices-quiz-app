@@ -9,3 +9,8 @@ beforeAll(async () => {
 afterAll(async () => {
   await db.disconnect()
 })
+
+//Reset database before each test
+beforeEach(async () => {
+  await db.clear()
+})

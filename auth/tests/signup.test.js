@@ -50,4 +50,12 @@ describe('SignUp', () => {
       .send({ username: 'User', password: 'asdadfjldkajdklkjfdka' })
       .expect(400)
   })
+
+  test('no duplicate usernames', async () => {
+    const user = { username: 'User', password: 'password' }
+    const user2 = { username: 'User2', password: 'password' }
+    await request(app).post('/api/auth/signup').send(user).expect(201)
+    await request(app).post('/api/auth/signup').send(user2).expect(201)
+    await request(app).post('/api/auth/signup').send(user).expect(409)
+  })
 })

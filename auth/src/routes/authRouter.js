@@ -37,4 +37,17 @@ router.post(
   authController.signUp
 )
 
+//Login
+router.post(
+  '/login',
+  [
+    body('password')
+      .trim()
+      .notEmpty()
+      .withMessage('You must supply a password'),
+  ],
+  collectValidationErrors,
+  authController.login
+)
+
 module.exports = router

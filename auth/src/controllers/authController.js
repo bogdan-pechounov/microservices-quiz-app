@@ -2,6 +2,7 @@ const User = require('../models/user')
 const { hashPassword } = require('../utils/password')
 const { createToken, setCookie } = require('../utils/tokens')
 
+//Sign up
 async function signUp(req, res) {
   //extract fields
   const { username, password } = req.body
@@ -15,6 +16,9 @@ async function signUp(req, res) {
   res.status(201).send(user)
 }
 
-const authController = { signUp }
+//Login
+async function login(req, res) {}
+
+const authController = { signUp, login }
 
 module.exports = authController
