@@ -18,8 +18,8 @@ build:
         dockerfile: Dockerfile
       sync:
         manual:
-          - dest: src/**/*
-            src: .
+          - src: src/**/*.tsx
+            dest: .
 # test:
 #   - image: auth-img
 #     context: auth
