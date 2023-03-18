@@ -1,6 +1,6 @@
 const User = require('../models/user')
-const { hashPassword } = require('../utils/password')
-const { createToken, setCookie } = require('../utils/tokens')
+const { hashPassword, verifyPassword } = require('../utils/password')
+const { createToken, setCookie, clearCookie } = require('../utils/tokens')
 
 //Sign up
 async function signUp(req, res) {
@@ -13,12 +13,30 @@ async function signUp(req, res) {
   //set cookie
   const jwtToken = createToken(user)
   setCookie(res, jwtToken)
+
   res.status(201).send(user)
 }
 
 //Login
-async function login(req, res) {}
+async function login(req, res) {
+  console.log(req.cookies)
+  const { username, password } = req.body
+  const user = await User.findOne({ username })
+  //Verify if user is found and if passwords match
+  if (!user || !(await verifyPassword(password, user.password))) {
+    return res.status(401).send('Invalid credentials')
+  }
+  //set cookie
+  const jwtToken = createToken(user)
+  setCookie(res, jwtToken)
 
-const authController = { signUp, login }
+  res.send(user)
+}
 
-module.exports = authController
+//Logout
+async function logout(req, res) {
+  clearCookie(res)
+  res.send('Logged out')
+}
+
+module.exports = { signUp, login, logout }

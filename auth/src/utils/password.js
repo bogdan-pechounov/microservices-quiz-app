@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 
 /**
- * Hashes a password
+ * Hash password with salt
  * @param {string} password
  * @returns hashed password
  */
@@ -17,7 +17,7 @@ async function hashPassword(password) {
  */
 async function verifyPassword(password, hashedPassword) {
   try {
-    return await bcrypt.compare(password, hashPassword)
+    return await bcrypt.compare(password, hashedPassword)
   } catch {
     return false
   }

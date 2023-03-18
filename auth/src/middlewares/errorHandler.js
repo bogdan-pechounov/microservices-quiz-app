@@ -8,7 +8,6 @@ function errorHandler(err, req, res, next) {
     const msg = { [field]: `${field} already taken.` }
     res.status(409).send(msg)
   }
-
   //something unforeseen went wrong
   else {
     res.status(500).send(err)

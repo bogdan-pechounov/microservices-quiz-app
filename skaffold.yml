@@ -29,5 +29,6 @@ manifests:
   rawYaml:
   - auth/k8s/*.yml
   - react-client/k8s/*.yml
+  - jwt-secret.yml
   - ingress-srv.yml
 

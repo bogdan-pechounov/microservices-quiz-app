@@ -1,4 +1,6 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
+
 const errorHandler = require('./middlewares/errorHandler')
 
 const app = express()
@@ -7,6 +9,7 @@ const app = express()
 
 //Middleware
 app.use(express.json()) //parse json
+app.use(cookieParser()) //cookies for jwt tokens
 
 //Routes
 app.get('/api/auth', (req, res) => {

@@ -14,3 +14,6 @@ afterAll(async () => {
 beforeEach(async () => {
   await db.clear()
 })
+
+//Set env
+process.env.JWT_SECRET = 'testing'

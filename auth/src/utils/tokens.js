@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken')
 const { checkEnv } = require('./utils')
 
 //Settings
-const JWT_SECRET = checkEnv('JWT_SECRET') || 'secret'
+const JWT_SECRET = checkEnv('JWT_SECRET')
+console.log(JWT_SECRET)
+
 const TOKEN_NAME = 'jwt'
 const cookie_options = {
   secure: process.env.NODE_ENV === 'production',
@@ -31,4 +33,13 @@ function setCookie(res, token) {
   res.cookie(TOKEN_NAME, token, cookie_options)
 }
 
-module.exports = { createToken, setCookie }
+/**
+ * Clear cookie for logging out
+ * @param {Response} res
+ */
+function clearCookie(res) {
+  const { maxAge, ...options } = cookie_options
+  res.clearCookie(TOKEN_NAME, options)
+}
+
+module.exports = { createToken, setCookie, clearCookie }
