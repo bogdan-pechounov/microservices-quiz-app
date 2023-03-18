@@ -9,6 +9,11 @@
     "test": "jest",
     "test-watch": "jest --watchAll"
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./tests/utils/setup.js"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,6 +22,7 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
+    "mongodb-memory-server": "^8.12.1",
     "nodemon": "^2.0.21",
     "supertest": "^6.3.3"
   }

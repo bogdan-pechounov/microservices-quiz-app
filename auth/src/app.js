@@ -2,17 +2,16 @@ const express = require('express')
 
 const app = express()
 
+// app.set('trust proxy', true) //for nginx TODO is it necessary
+
 //Middleware
 app.use(express.json()) //parse json
-// app.set('trust proxy', true) //for nginx
 
+//Routes
 app.get('/api/auth', (req, res) => {
-  console.log('received')
   res.send('hi11')
 })
 
-app.get('/users', (req, res) => {
-  res.send('Users')
-})
+app.use('/api/auth', require('./routes/authRouter'))
 
 module.exports = app
