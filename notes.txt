@@ -14,3 +14,7 @@ gcloud config get-value project
 gcloud config set project disco-ethos-380514
 gcloud builds submit --region=us-central1 --project=disco-ethos-380514 --config cloudbuild.yaml
 gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1,_CLUSTER=autopilot-cluster-1 .
+
+skaffold dev -f skaffold.dev.yml
+kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=secret
+require('crypto').randomBytes(64).toString('hex') 

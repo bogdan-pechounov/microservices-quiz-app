@@ -14,7 +14,7 @@
     "setupFilesAfterEnv": [
       "./tests/utils/setup.js"
     ],
-    "testTimeout": 10000
+    "testTimeout": 30000
   },
   "author": "",
   "license": "ISC",

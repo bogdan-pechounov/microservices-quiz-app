@@ -6,7 +6,7 @@ import axios from 'axios'
 
 function App() {
   axios.get('/api/auth').then(console.log)
-  return <div>App4</div>
+  return <div>App5</div>
 }
 
 export default App

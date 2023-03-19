@@ -4,31 +4,35 @@ metadata:
   name: microservices-quiz-app
 build:
   artifacts:
+    # auth
     - image: auth-img
       context: auth
       docker:
         dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: src/**/*.js
-            dest: .
+    - image: auth-img-dev
+      context: auth
+      docker:
+        dockerfile: Dockerfile.dev
+    # react client
     - image: react-client-img
       context: react-client
       docker:
         dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: src/**/*.tsx
-            dest: .
-# test:
-#   - image: auth-img
-#     context: auth
-#     custom:
-#       - command: node --version
+    - image: react-client-img-dev
+      context: react-client
+      docker:
+        dockerfile: Dockerfile.dev
+test:
+  # auth
+  - image: auth-img-dev
+    context: auth
+    custom:
+      # run test in container
+      - command: docker run -e CI=true %IMAGE% npm test
 manifests:
   rawYaml:
   - auth/k8s/*.yml
   - react-client/k8s/*.yml
-  - jwt-secret.yml
+  # - jwt-secret.yml created manually
   - ingress-srv.yml
 

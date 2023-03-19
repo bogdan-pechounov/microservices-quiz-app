@@ -1,0 +1,32 @@
+# less images to build and no tests
+apiVersion: skaffold/v4beta2
+kind: Config
+metadata:
+  name: microservices-quiz-app
+build:
+  artifacts:
+    # auth
+    - image: auth-img
+      context: auth
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: src/
+            dest: .
+    # react-client
+    - image: react-client-img
+      context: react-client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: src/
+            dest: .
+manifests:
+  rawYaml:
+  - auth/k8s/*.yml
+  - react-client/k8s/*.yml
+  - jwt-secret.yml
+  - ingress-srv.yml
+
