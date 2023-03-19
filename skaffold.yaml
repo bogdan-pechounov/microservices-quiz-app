@@ -31,8 +31,8 @@ test:
       - command: docker run -e CI=true %IMAGE% npm test
 manifests:
   rawYaml:
-  - auth/k8s/*.yml
-  - react-client/k8s/*.yml
-  # - jwt-secret.yml created manually
-  - ingress-srv.yml
+  - auth/k8s/*.yaml
+  - react-client/k8s/*.yaml
+  # - jwt-secret.yaml created manually
+  - ingress-srv.yaml
 

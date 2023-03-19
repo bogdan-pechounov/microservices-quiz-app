@@ -2,7 +2,7 @@ minikube dashboard
 minikube service auth-srv 
 
 minikube addons enable ingress
-kubectl apply -f ingress-srv.yml
+kubectl apply -f ingress-srv.yaml
 kubectl get ingress --watch
 C:\Windows\System32\drivers\etc\hosts.
 

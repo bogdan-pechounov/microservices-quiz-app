@@ -25,8 +25,8 @@ build:
             dest: .
 manifests:
   rawYaml:
-  - auth/k8s/*.yml
-  - react-client/k8s/*.yml
-  - jwt-secret.yml
-  - ingress-srv.yml
+  - auth/k8s/*.yaml
+  - react-client/k8s/*.yaml
+  - jwt-secret.yaml
+  - ingress-srv.yaml
 
