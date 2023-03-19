@@ -12,7 +12,7 @@ build:
         dockerfile: Dockerfile.dev
       sync:
         manual:
-          - src: src/
+          - src: src/**/*
             dest: .
     # react-client
     - image: react-client-img
@@ -21,7 +21,7 @@ build:
         dockerfile: Dockerfile.dev
       sync:
         manual:
-          - src: src/
+          - src: src/**/*
             dest: .
 manifests:
   rawYaml:

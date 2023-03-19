@@ -12,7 +12,7 @@ describe('Logout', () => {
     console.log(agent.jar.getCookies(CookieAccessInfo()))
 
     await agent.post('/api/auth/login').send(user) //console.log(req.cookies)
-    // console.log(agent.jar.getCookies(CookieAccessInfo()))
+    // console.log(agent.jar.getCookies(CookieAccessInfo())) TODO
 
     // let jwtToken = agent.jar.getCookie('jwt', CookieAccessInfo())
     // expect(jwtToken).toBeDefined()

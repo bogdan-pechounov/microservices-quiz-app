@@ -29,6 +29,12 @@ test:
     custom:
       # run test in container
       - command: echo $IMAGE && docker run -e CI=true $IMAGE npm test
+  # react-client
+  - image: react-client-img-dev
+    context: react-client
+    custom:
+      # run test in container
+      - command: docker run -e CI=true $IMAGE npm test
 manifests:
   rawYaml:
   - auth/k8s/*.yaml

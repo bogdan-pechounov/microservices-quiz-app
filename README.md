@@ -5,3 +5,5 @@ Microservices quiz application using Docker, Kubernetes and Skaffold. An NGINX I
 # References
 
 [GCP Microservices Demo](https://github.com/GoogleCloudPlatform/microservices-demo)
+
+[RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
