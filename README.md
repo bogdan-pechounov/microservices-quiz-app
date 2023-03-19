@@ -1,6 +1,6 @@
 Microservices quiz application using Docker, Kubernetes and Skaffold. An NGINX Ingress controller routes requests to different services.
 
-[Demo]() temporarily deployed on Google Cloud. Run locally using `skaffold run -f skaffold.dev.yaml`.
+[Demo](http://104.197.236.50/) temporarily deployed on Google Cloud. Run locally using `skaffold run -f skaffold.dev.yaml`.
 
 # References
 
