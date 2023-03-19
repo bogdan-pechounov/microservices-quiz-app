@@ -5,7 +5,6 @@ import './App.css'
 import axios from 'axios'
 
 function App() {
-  axios.get('/api/auth').then(console.log)
   return <div>App5</div>
 }
 
