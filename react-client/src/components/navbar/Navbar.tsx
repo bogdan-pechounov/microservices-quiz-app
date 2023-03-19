@@ -6,10 +6,11 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { useHiQuery } from '../../redux/services/authApi'
+import LoginDialog from '../login/LoginDialog'
 
 export default function Navbar() {
   // Using a query hook automatically fetches data and returns query values
-  const { data, error, isLoading } = useHiQuery('')
+  const { data, error, isLoading } = useHiQuery()
   console.log(data, error, isLoading)
 
   return (
@@ -26,9 +27,9 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            News
+            Quiz
           </Typography>
-          <Button color='inherit'>Login</Button>
+          <LoginDialog />
         </Toolbar>
       </AppBar>
     </Box>
