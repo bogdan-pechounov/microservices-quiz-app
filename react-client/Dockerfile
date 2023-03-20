@@ -8,5 +8,5 @@ RUN npm run build
 FROM node:18-alpine
 WORKDIR /app
 RUN npm install --global serve
-COPY dist .
+COPY ./dist .
 CMD ["serve", "-l", "5173"]
