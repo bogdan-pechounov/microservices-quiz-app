@@ -1,8 +1,11 @@
 import { rest } from 'msw'
 
 const baseUrl = 'http://localhost'
+
+console.log(document.baseURI)
 export const handlers = [
-  rest.get(baseUrl + '/api/auth/me', (req, res, ctx) => {
+  rest.get('/api/auth/me', (req, res, ctx) => {
+    console.log('REQUEST')
     return res(ctx.status(200), ctx.json({ username: 'User' }))
   }),
 ]
