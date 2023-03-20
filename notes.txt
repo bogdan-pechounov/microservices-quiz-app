@@ -18,3 +18,4 @@ gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1,
 skaffold dev -f skaffold.dev.yaml
 kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=secret
 require('crypto').randomBytes(64).toString('hex') 
+skaffold run --skip-tests
