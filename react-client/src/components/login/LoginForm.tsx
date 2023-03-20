@@ -38,7 +38,6 @@ export default function LoginForm({ handleClose }: Props) {
           onChange={(e) => setUsername(e.target.value)}
         />
         <TextField
-          autoFocus
           margin='dense'
           id='password'
           label='Password'

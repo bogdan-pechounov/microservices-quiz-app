@@ -25,12 +25,30 @@ function createToken(user) {
 }
 
 /**
+ * Decode token to read values
+ * @param {*} jwtToken
+ * @returns decoded token
+ */
+function decodeToken(jwtToken) {
+  return jwt.verify(jwtToken, JWT_SECRET)
+}
+
+/**
  * Set cookie to store jwt token using options
  * @param {Response} res
  * @param {Token} token
  */
 function setCookie(res, token) {
   res.cookie(TOKEN_NAME, token, cookie_options)
+}
+
+/**
+ * Get cookie in request
+ * @param {Request} req
+ * @returns cookie with jwt token
+ */
+function getCookie(req) {
+  return req.cookies[TOKEN_NAME]
 }
 
 /**
@@ -42,4 +60,4 @@ function clearCookie(res) {
   res.clearCookie(TOKEN_NAME, options)
 }
 
-module.exports = { createToken, setCookie, clearCookie }
+module.exports = { createToken, setCookie, clearCookie, decodeToken, getCookie }

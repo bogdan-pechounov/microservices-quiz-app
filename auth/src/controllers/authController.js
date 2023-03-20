@@ -1,6 +1,12 @@
 const User = require('../models/user')
 const { hashPassword, verifyPassword } = require('../utils/password')
-const { createToken, setCookie, clearCookie } = require('../utils/tokens')
+const {
+  createToken,
+  setCookie,
+  clearCookie,
+  getCookie,
+  decodeToken,
+} = require('../utils/tokens')
 
 //Sign up
 async function signUp(req, res) {
@@ -19,7 +25,6 @@ async function signUp(req, res) {
 
 //Login
 async function login(req, res) {
-  console.log(req.cookies)
   const { username, password } = req.body
   const user = await User.findOne({ username })
   //Verify if user is found and if passwords match
@@ -33,10 +38,28 @@ async function login(req, res) {
   res.send(user)
 }
 
+//Me
+async function me(req, res) {
+  const jwt = getCookie(req)
+  //Verify if user has jwt token in cookie
+  if (!jwt) {
+    return res.status(401).send('Not logged in')
+  }
+  //Get id in token
+  const { id } = decodeToken(jwt)
+  //Find user
+  const user = await User.findById(id)
+  if (!user) {
+    return res.status(404).send('User not found')
+  }
+
+  res.send(user)
+}
+
 //Logout
 async function logout(req, res) {
   clearCookie(res)
   res.send('Logged out')
 }
 
-module.exports = { signUp, login, logout }
+module.exports = { signUp, login, logout, me }

@@ -2,17 +2,14 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import { useHiQuery } from '../../redux/services/authApi'
 import LoginDialog from '../login/LoginDialog'
+import { useMeQuery } from '../../redux/services/authApi'
+import Logout from '../logout/Logout'
 
 export default function Navbar() {
-  // Using a query hook automatically fetches data and returns query values
-  const { data, error, isLoading } = useHiQuery()
-  console.log(data, error, isLoading)
-
+  const { data } = useMeQuery()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -29,7 +26,7 @@ export default function Navbar() {
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             Quiz
           </Typography>
-          <LoginDialog />
+          {data ? <Logout /> : <LoginDialog />}
         </Toolbar>
       </AppBar>
     </Box>

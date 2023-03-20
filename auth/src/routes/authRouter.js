@@ -18,6 +18,9 @@ const settings = {
   },
 }
 
+//Current user
+router.get('/me', authController.me)
+
 //Sign up
 router.post(
   '/signup',
@@ -50,4 +53,6 @@ router.post(
   authController.login
 )
 
+//Logout
+router.post('/logout', authController.logout)
 module.exports = router

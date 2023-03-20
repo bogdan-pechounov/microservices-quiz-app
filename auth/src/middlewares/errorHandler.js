@@ -1,7 +1,6 @@
 require('express-async-errors') //help catch errors in promises
 
 function errorHandler(err, req, res, next) {
-  console.log('ERROR')
   //unique fields
   if (err.name === 'MongoServerError' && err.code === 11000) {
     let field = Object.keys(err.keyValue)[0]
