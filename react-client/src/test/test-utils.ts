@@ -1,5 +1,6 @@
 import { cleanup, render } from '@testing-library/react'
 import { afterEach } from 'vitest'
+import Providers from '../Providers'
 
 afterEach(() => {
   cleanup()
@@ -8,7 +9,7 @@ afterEach(() => {
 const customRender = (ui: React.ReactElement, options = {}) =>
   render(ui, {
     // wrap provider(s) here if needed
-    wrapper: ({ children }) => children,
+    wrapper: Providers,
     ...options,
   })
 

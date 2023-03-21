@@ -7,9 +7,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import LoginDialog from '../login/LoginDialog'
 import { useMeQuery } from '../../redux/services/authApi'
 import Logout from '../logout/Logout'
+import { useTypedSelector } from '../../redux/app/hooks'
 
 export default function Navbar() {
-  const { data } = useMeQuery()
+  const user = useTypedSelector((state) => state.auth.user)
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -26,7 +27,7 @@ export default function Navbar() {
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             Quiz
           </Typography>
-          {data ? <Logout /> : <LoginDialog />}
+          {user ? <Logout /> : <LoginDialog />}
         </Toolbar>
       </AppBar>
     </Box>

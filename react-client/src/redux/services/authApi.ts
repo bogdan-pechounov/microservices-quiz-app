@@ -1,5 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { User, UserLogin } from '../../types/user'
+
+export type User = {
+  username: string
+}
+
+export type UserLogin = User & {
+  password: string
+}
 
 // Define a service using a base URL and expected endpoints
 export const authApi = createApi({
@@ -22,6 +29,7 @@ export const authApi = createApi({
       query: () => ({
         url: '/logout',
         method: 'POST',
+        responseHandler: 'text',
       }),
     }),
     //Sign up

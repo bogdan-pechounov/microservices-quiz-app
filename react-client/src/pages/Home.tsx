@@ -1,8 +1,9 @@
 import React from 'react'
 import { useMeQuery } from '../redux/services/authApi'
+import { useTypedSelector } from '../redux/app/hooks'
 
 export default function Home() {
-  const { data } = useMeQuery()
-  console.log('ME', data)
-  return <div>{data?.username}</div>
+  const user = useTypedSelector((state) => state.auth.user)
+
+  return <div>{user?.username}</div>
 }
