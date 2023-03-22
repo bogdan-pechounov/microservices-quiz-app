@@ -1,7 +1,6 @@
 import { Button, DialogActions, TextField } from '@mui/material'
 import DialogContent from '@mui/material/DialogContent'
 import { useState } from 'react'
-import { User, UserLogin } from '../../types/user'
 import {
   useLoginMutation,
   useSignupMutation,
@@ -18,7 +17,7 @@ export default function SignUpForm({ handleClose }: Props) {
   const [signup, { isLoading }] = useSignupMutation()
 
   const handleSignUp = async () => {
-    const user = await signup({ username, password })
+    await signup({ username, password })
     handleClose()
   }
 

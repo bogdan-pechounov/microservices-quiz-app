@@ -1,7 +1,6 @@
 import { Button, DialogActions, TextField } from '@mui/material'
 import DialogContent from '@mui/material/DialogContent'
 import { useState } from 'react'
-import { User, UserLogin } from '../../types/user'
 import { useLoginMutation } from '../../redux/services/authApi'
 
 type Props = {
@@ -16,10 +15,10 @@ export default function LoginForm({ handleClose }: Props) {
 
   const handleLogin = async () => {
     try {
-      const user = await login({ username, password }).unwrap()
-      console.log(user)
+      await login({ username, password }).unwrap()
       handleClose()
     } catch (err) {
+      //TODO toast msg
       console.log(err)
     }
   }
