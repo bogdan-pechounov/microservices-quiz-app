@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quiz-mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: quiz-mysql-set
+spec:
+  selector:
+    matchLabels:
+      app: quiz-mysql-pod-label
+  serviceName: quiz-mysql-srv
+  template:
+    metadata:
+      labels:
+        app: quiz-mysql-pod-label
+    spec:
+      containers:
+        - name: quiz-mysql-pod
+          image: mysql:5.7.32 
+          envFrom:                                
+          - secretRef:                           
+              name: quiz-mysql-secret
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: quiz-mysql-volume
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: quiz-mysql-volume
+          persistentVolumeClaim:
+            claimName: quiz-mysql-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-mysql-srv
+spec:
+  selector:
+    app: quiz-mysql-pod-label
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306

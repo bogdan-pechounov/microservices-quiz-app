@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quiz-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quiz-pod-label
+  template:
+    metadata:
+      labels:
+        app: quiz-pod-label
+    spec:
+      containers:
+      - name: quiz-pod
+        image: quiz-img
+        ports:
+        - containerPort: 3000
+        env:
+          - name: MONGO_URI
+            value: mongodb://quiz-mongo-srv:27017/quiz
+          - name: JWT_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: jwt-secret
+                key: JWT_SECRET
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: quiz-srv
+spec:
+  selector:
+    app: quiz-pod-label
+  ports:
+  - protocol: TCP
+    port: 3000
+    targetPort: 3000

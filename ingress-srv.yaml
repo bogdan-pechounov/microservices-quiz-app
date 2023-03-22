@@ -19,6 +19,14 @@ spec:
                 name: auth-srv
                 port:
                   number: 3000
+          # quiz service
+          - path: /api/quiz(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: quiz-srv
+                port:
+                  number: 3000
           # default to react client
           - path: /.*
             pathType: Prefix
