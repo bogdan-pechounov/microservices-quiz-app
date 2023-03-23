@@ -3,26 +3,34 @@ package main
 import (
 	"log"
 
+	"quiz/database"
+	"quiz/routes"
+
 	"github.com/gofiber/fiber/v2"
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
 )
+
+func setupRoutes(app *fiber.App) {
+	//hello
+	app.Get("/api/quiz/hello", func(c *fiber.Ctx) error {
+		return c.SendString("Hello, World!")
+	})
+	//quiz endpoints
+	app.Get("/api/quiz", routes.GetQuizzes)
+	app.Get("/api/quiz/:id", routes.GetQuiz)
+	app.Post("/api/quiz", routes.CreateQuiz)
+	app.Put("/api/quiz/:id", routes.UpdateQuiz)
+	app.Delete("/api/quiz/:id", routes.DeleteQuiz)
+}
 
 func main() {
 	// Connect to database
-	_, err := gorm.Open(mysql.Open("me:password@tcp(quiz-mysql-srv)/quiz?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
-
-	if err != nil {
-		// panic("could not connect to the dabase")
-	}
+	database.ConnectDb()
 
 	// App
 	app := fiber.New()
 
 	// Routes
-	app.Get("/api/quiz", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
-	})
+	setupRoutes(app)
 
 	// Listen
 	log.Fatal(app.Listen(":3000"))
