@@ -11,11 +11,24 @@ import (
 )
 
 func CreateQuiz(c *fiber.Ctx) error {
+	// get user
+	user, ok := c.Locals("user").(models.User)
+
+	if !ok {
+		// TODO how to handle it
+		return c.Status(http.StatusInternalServerError).SendString("No user")
+	}
+
+	// create quiz
 	var quiz models.Quiz
 
 	if err := c.BodyParser(&quiz); err != nil {
 		return c.Status(400).JSON(err.Error())
 	}
+
+	// set user fields
+	quiz.UserId = user.Id
+	quiz.Author = user.Username
 
 	database.Database.Db.Create(&quiz)
 	return c.Status(http.StatusCreated).JSON(quiz)

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"quiz/models"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/golang-jwt/jwt/v5"
@@ -35,6 +36,21 @@ func DeserializeUser(c *fiber.Ctx) error {
 	}
 
 	fmt.Println(token)
+
+	//claims
+	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
+		//user
+		var user models.User
+
+		user.Id = fmt.Sprint(claims["id"])
+		user.Username = fmt.Sprint(claims["username"])
+
+		fmt.Println(user)
+
+		c.Locals("user", user)
+	} else {
+		fmt.Println(err)
+	}
 
 	return c.Next()
 }

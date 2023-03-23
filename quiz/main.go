@@ -20,7 +20,9 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/api/quiz", routes.GetQuizzes)
 	app.Get("/api/quiz/:id", routes.GetQuiz)
 
+	// User middleware
 	app.Use(middleware.DeserializeUser)
+
 	// Restricted Routes
 	app.Post("/api/quiz", routes.CreateQuiz)
 	app.Put("/api/quiz/:id", routes.UpdateQuiz)
