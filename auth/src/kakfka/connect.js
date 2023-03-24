@@ -8,13 +8,18 @@ const kafka = new Kafka({
 async function createProducer() {
   const producer = kafka.producer()
 
-  await producer.connect()
-  await producer.send({
-    topic: 'test-topic',
-    messages: [{ value: 'Hello KafkaJS user!' }],
-  })
+  try {
+    await producer.connect()
+    await producer.send({
+      topic: 'test-topic',
+      messages: [{ value: 'Hello KafkaJS user!' }],
+    })
 
-  await producer.disconnect()
+    await producer.disconnect()
+  } catch (err) {
+    console.log("Couldn' connect to broker")
+    console.error(err)
+  }
 }
 
 async function createConsumer() {
@@ -32,8 +37,4 @@ async function createConsumer() {
   })
 }
 
-try {
-  createProducer()
-} catch (err) {
-  console.error(err)
-}
+createProducer()
