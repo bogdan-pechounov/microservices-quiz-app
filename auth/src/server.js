@@ -16,3 +16,6 @@ mongoose
     console.log("Couldn't connect to:", process.env.MONGO_URI)
     console.error(e)
   })
+
+//Connect to message broker
+require('./kakfka/connect')

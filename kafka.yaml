@@ -54,23 +54,26 @@ kind: Service
 metadata:
   labels:
     app: kafka-broker
-  name: kafka-service
+  name: kafka-broker
   namespace: kafka
 spec:
-  ports:
-  - port: 9092
+  clusterIP: "None"
+  # ports:
+  # - protocol: TCP
+  #   port: 9092
+  #   targetPort: 9092
   selector:
     app: kafka-broker
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app: kafka-broker
   name: kafka-broker
   namespace: kafka
 spec:
-  replicas: 1
+  # replicas: 1
   selector:
     matchLabels:
       app: kafka-broker
@@ -96,3 +99,4 @@ spec:
         name: kafka-broker
         ports:
         - containerPort: 9092
+# TODO add persistent volume
