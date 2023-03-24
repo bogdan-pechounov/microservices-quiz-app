@@ -32,4 +32,8 @@ async function createConsumer() {
   })
 }
 
-createProducer()
+try {
+  createProducer()
+} catch (err) {
+  console.error(err)
+}

@@ -26,6 +26,8 @@ spec:
       containers:
         - name: quiz-mysql-pod
           image: mysql:5.7.32 
+          args:
+            - "--ignore-db-dir=lost+found"
           envFrom:                                
           - secretRef:                           
               name: quiz-mysql-secret
