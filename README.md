@@ -7,3 +7,7 @@ Microservices quiz application using Docker, Kubernetes and Skaffold. An NGINX I
 [GCP Microservices Demo](https://github.com/GoogleCloudPlatform/microservices-demo)
 
 [RTK Query](https://redux-toolkit.js.org/rtk-query/overview)
+
+[Apache Kafka Crash Course](https://www.youtube.com/watch?v=R873BlNVUB4)
+
+[How To Deploy Apache Kafka With Kubernetes](https://levelup.gitconnected.com/how-to-deploy-apache-kafka-with-kubernetes-9bd5caf7694f)

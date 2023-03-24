@@ -13,6 +13,11 @@ build:
       context: auth
       docker:
         dockerfile: Dockerfile.dev
+    # quiz
+    - image: quiz-img
+      context: quiz
+      docker:
+        dockerfile: Dockerfile
     # react client
     - image: react-client-img
       context: react-client
@@ -38,7 +43,8 @@ test:
 manifests:
   rawYaml:
   - auth/k8s/*.yaml
-  - react-client/k8s/*.yaml
+  - react-client/k8s/*.yaml 
+  - quiz/k8s/*.yaml
   # - jwt-secret.yaml created manually
   - ingress-srv.yaml
 

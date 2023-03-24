@@ -3,36 +3,37 @@ apiVersion: skaffold/v4beta2
 kind: Config
 metadata:
   name: microservices-quiz-app
-build:
-  artifacts:
-    # auth
-    - image: auth-img
-      context: auth
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
-          - src: src/**/*
-            dest: .
-    # quiz
-    - image: quiz-img
-      context: quiz
-      docker:
-        dockerfile: Dockerfile.dev
-    # react-client
-    - image: react-client-img
-      context: react-client
-      docker:
-        dockerfile: Dockerfile.dev
-      sync:
-        manual:
-          - src: src/**/*
-            dest: .
+# build:
+#   artifacts:
+#     # auth
+#     - image: auth-img
+#       context: auth
+#       docker:
+#         dockerfile: Dockerfile.dev
+#       sync:
+#         manual:
+#           - src: src/**/*
+#             dest: .
+#     # quiz
+#     - image: quiz-img
+#       context: quiz
+#       docker:
+#         dockerfile: Dockerfile.dev
+#     # react-client
+#     - image: react-client-img
+#       context: react-client
+#       docker:
+#         dockerfile: Dockerfile.dev
+#       sync:
+#         manual:
+#           - src: src/**/*
+#             dest: .
 manifests:
   rawYaml:
-  # - auth/k8s/*.yaml
-  - quiz/k8s/*.yaml
-  # - react-client/k8s/*.yaml
-  - jwt-secret.yaml
-  - ingress-srv.yaml
+  # # - auth/k8s/*.yaml
+  # - quiz/k8s/*.yaml
+  # # - react-client/k8s/*.yaml
+  # - jwt-secret.yaml
+  # - ingress-srv.yaml
+  - kafka.yaml
 
