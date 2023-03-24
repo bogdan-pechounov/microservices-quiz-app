@@ -1,7 +1,7 @@
 ## Build
 FROM golang:1.20-buster AS build
 
-WORKDIR /app
+WORKDIR /quiz
 
 COPY go.mod ./
 COPY go.sum ./
@@ -14,7 +14,7 @@ RUN go build -o /quiz
 ## Deploy
 FROM gcr.io/distroless/base-debian10
 
-WORKDIR /
+# WORKDIR /quiz
 
 COPY --from=build /quiz /quiz
 
