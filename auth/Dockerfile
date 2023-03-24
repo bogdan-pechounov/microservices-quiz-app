@@ -5,7 +5,7 @@ WORKDIR /app
 
 COPY ["package.json", "package-lock.json*", "./"]
 
-RUN npm install --build-from-resource --omit=dev
+RUN npm install --omit=dev
 
 COPY . .
 
