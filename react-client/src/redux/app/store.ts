@@ -4,17 +4,22 @@ import { authApi } from '../services/authApi'
 import authReducer from '../features/auth/authSlice'
 // We'll use redux-logger just as an example of adding another middleware
 import logger from 'redux-logger'
+import { quizApi } from '../services/quizApi'
 
 const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
     [authApi.reducerPath]: authApi.reducer,
+    [quizApi.reducerPath]: quizApi.reducer,
     auth: authReducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware).concat(logger),
+    getDefaultMiddleware()
+      .concat(authApi.middleware)
+      .concat(quizApi.middleware),
+  // .concat(logger),
 })
 
 // optional, but required for refetchOnFocus/refetchOnReconnect behaviors

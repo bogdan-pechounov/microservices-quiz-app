@@ -6,11 +6,11 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import AuthDialog from '../auth/AuthDialog'
 import Logout from '../logout/Logout'
-import { useTypedSelector } from '../../redux/app/hooks'
+import { useUser } from '../../redux/app/hooks'
 import { Link } from 'react-router-dom'
 
 export default function Navbar() {
-  const user = useTypedSelector((state) => state.auth.user)
+  const { user } = useUser()
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
