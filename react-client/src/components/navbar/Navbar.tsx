@@ -4,10 +4,10 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
-import LoginDialog from '../login/LoginDialog'
-import { useMeQuery } from '../../redux/services/authApi'
+import AuthDialog from '../auth/AuthDialog'
 import Logout from '../logout/Logout'
 import { useTypedSelector } from '../../redux/app/hooks'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   const user = useTypedSelector((state) => state.auth.user)
@@ -25,9 +25,9 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
-            Quiz
+            <Link to='/'>Quiz</Link>
           </Typography>
-          {user ? <Logout /> : <LoginDialog />}
+          {user ? <Logout /> : <AuthDialog />}
         </Toolbar>
       </AppBar>
     </Box>

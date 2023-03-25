@@ -19,3 +19,8 @@ skaffold dev -f skaffold.dev.yaml
 kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=secret
 require('crypto').randomBytes(64).toString('hex') 
 skaffold run --skip-tests
+
+minikube start --memory 4096 --cpus 4
+minikube profile list
+minikube config set memory 3072
+minikube config set cpus 3

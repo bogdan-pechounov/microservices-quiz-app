@@ -19,21 +19,21 @@ build:
       context: quiz
       docker:
         dockerfile: Dockerfile.dev
-#     # react-client
-#     - image: react-client-img
-#       context: react-client
-#       docker:
-#         dockerfile: Dockerfile.dev
-#       sync:
-#         manual:
-#           - src: src/**/*
-#             dest: .
+    # react-client
+    - image: react-client-img
+      context: react-client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: src/**/*
+            dest: .
 manifests:
   rawYaml:
   - auth/k8s/*.yaml
-  # - quiz/k8s/*.yaml
-  # - react-client/k8s/*.yaml
+  - quiz/k8s/*.yaml
+  - react-client/k8s/*.yaml
   - jwt-secret.yaml
-  # - ingress-srv.yaml
+  - ingress-srv.yaml
   - kafka.yaml
 

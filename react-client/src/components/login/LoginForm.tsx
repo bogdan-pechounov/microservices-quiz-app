@@ -7,6 +7,9 @@ type Props = {
   handleClose: () => void
 }
 
+/**
+ * Login form
+ */
 export default function LoginForm({ handleClose }: Props) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
