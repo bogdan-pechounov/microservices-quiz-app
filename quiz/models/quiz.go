@@ -1,9 +1,11 @@
 package models
 
 type Quiz struct {
-	Id          uint   `json:"id" gorm:"primaryKey"`
-	UserId      string `json:"userId"`
+	ID          uint   `json:"id"`
+	UserID      string `json:"userId"`
 	Author      string `json:"author"`
 	Name        string `json:"name"`
 	Description string `json:"description"`
+	//has many relationship with Question
+	Questions []Question `json:"questions"`
 }
