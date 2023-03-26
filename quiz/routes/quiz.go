@@ -47,20 +47,22 @@ func CreateQuiz(c *fiber.Ctx) error {
 func GetQuizzes(c *fiber.Ctx) error {
 	quizzes := []models.Quiz{}
 
-	// preload questions
+	// preload questions TODO preload optional
 	database.Instance.Preload("Questions").Find(&quizzes)
 
 	return c.Status(http.StatusOK).JSON(quizzes)
 }
 
+// helper function to find quiz by id
 func findQuiz(id int, quiz *models.Quiz) error {
-	database.Instance.Find(&quiz, "id = ?", id)
+	database.Instance.Preload("Questions").Find(&quiz, "id = ?", id)
 	if quiz.ID == 0 {
 		return errors.New("quiz does not exist")
 	}
 	return nil
 }
 
+// get a quiz by id
 func GetQuiz(c *fiber.Ctx) error {
 	// parse id
 	id, err := c.ParamsInt("id")
@@ -79,18 +81,24 @@ func GetQuiz(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(quiz)
 }
 
+// update a quiz
 func UpdateQuiz(c *fiber.Ctx) error {
+	// parse id
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON("Please ensuure that :id is an integer")
 	}
 
+	// find quiz
 	var quiz models.Quiz
 
 	if err := findQuiz(id, &quiz); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
+
+	//TODO check if author
+	//TODO how to update question
 
 	if err := c.BodyParser(&quiz); err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(err.Error())
@@ -101,14 +109,19 @@ func UpdateQuiz(c *fiber.Ctx) error {
 	return c.Status(http.StatusOK).JSON(quiz)
 }
 
+// delete a quiz
+// TODO foreign key constraint
 func DeleteQuiz(c *fiber.Ctx) error {
-	fmt.Println("DELETE")
+	// parse id
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
 		return c.Status(http.StatusBadRequest).JSON("Please ensuure that :id is an integer")
 	}
 
+	//TODO check if author using middleware
+
+	//TODO is it necessary to find quiz first
 	var quiz models.Quiz
 
 	fmt.Println(quiz)

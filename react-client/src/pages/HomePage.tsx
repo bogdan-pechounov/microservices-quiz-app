@@ -3,7 +3,7 @@ import { useTypedSelector } from '../redux/app/hooks'
 import Button from '@mui/material/Button'
 import { useQuizzesQuery } from '../redux/services/quizApi'
 
-export default function Home() {
+export default function HomePage() {
   const user = useTypedSelector((state) => state.auth.user)
 
   const { data: quizzes, isLoading, error } = useQuizzesQuery()
@@ -14,9 +14,13 @@ export default function Home() {
       <Link to='/quiz/create'>
         <Button variant='contained'>Create quiz</Button>
       </Link>
-      {quizzes?.map((quiz) => (
-        <div key={quiz.id}>{quiz.name}</div>
-      ))}
+      <ul>
+        {quizzes?.map((quiz) => (
+          <li key={quiz.id}>
+            <Link to={`/quiz/${quiz.id}`}>{quiz.name}</Link>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

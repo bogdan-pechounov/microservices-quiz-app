@@ -1,10 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+type Question = {
+  id: number
+  question: string
+}
+
 export type CreateQuiz = {
   name: string
   description: string
+  questions?: Question[]
 }
 
+// add user fields
 export type Quiz = CreateQuiz & {
   id: number
   userId: string
@@ -17,10 +24,16 @@ export const quizApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: '/api/quiz' }),
   tagTypes: ['Quiz'], //for automated refetching
   endpoints: (builder) => ({
+    // get quizzes
     quizzes: builder.query<Quiz[], void>({
       query: () => ({ url: '/' }),
       providesTags: ['Quiz'], //tag for refetching
     }),
+    // get quiz by id
+    quiz: builder.query<Quiz, number>({
+      query: (id) => ({ url: `/${id}` }),
+    }),
+    // create quiz
     createQuiz: builder.mutation<Quiz, CreateQuiz>({
       query: (quiz) => ({
         url: '/',
@@ -34,4 +47,4 @@ export const quizApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useQuizzesQuery, useCreateQuizMutation } = quizApi
+export const { useQuizzesQuery, useQuizQuery, useCreateQuizMutation } = quizApi
