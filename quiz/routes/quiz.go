@@ -105,8 +105,6 @@ func UpdateQuiz(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
 
-	fmt.Println(1, quiz)
-
 	// check if author
 	if ok := isAuthor(c, &quiz); !ok {
 		return nil
@@ -116,14 +114,11 @@ func UpdateQuiz(c *fiber.Ctx) error {
 		return c.Status(http.StatusInternalServerError).JSON(err.Error())
 	}
 
-	fmt.Println(2, quiz)
-
 	// save
 	database.Instance.Omit("Questions").Updates(&quiz)
 	// replace questions
 	database.Instance.Session(&gorm.Session{FullSaveAssociations: true}).Model(&quiz).Association("Questions").Replace(&quiz.Questions)
 
-	fmt.Println(3, quiz)
 	return c.Status(http.StatusOK).JSON(quiz)
 }
 
