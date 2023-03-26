@@ -11,7 +11,7 @@ export default function QuizPage() {
       <h1>{quiz?.name}</h1>
       <p>{quiz?.description}</p>
       <ul>
-        {quiz?.questions?.map((question) => (
+        {quiz?.questions.map((question) => (
           <li key={question.id}>{question.question}</li>
         ))}
       </ul>
