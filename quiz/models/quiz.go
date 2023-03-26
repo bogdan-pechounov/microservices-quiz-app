@@ -7,5 +7,5 @@ type Quiz struct {
 	Name        string `json:"name"`
 	Description string `json:"description"`
 	//has many relationship with Question
-	Questions []Question `json:"questions"`
+	Questions []Question `json:"questions" gorm:"constraint:OnDelete:CASCADE;"`
 }

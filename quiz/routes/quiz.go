@@ -9,6 +9,7 @@ import (
 	"quiz/models"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 // Create a quiz
@@ -17,8 +18,7 @@ func CreateQuiz(c *fiber.Ctx) error {
 	user, ok := c.Locals("user").(middleware.User)
 
 	if !ok {
-		// TODO how to handle it
-		return c.Status(http.StatusInternalServerError).SendString("No user")
+		return c.SendStatus(http.StatusInternalServerError)
 	}
 
 	// parse request
@@ -55,6 +55,14 @@ func GetQuizzes(c *fiber.Ctx) error {
 
 // helper function to find quiz by id
 func findQuiz(id int, quiz *models.Quiz) error {
+	database.Instance.Find(&quiz, "id = ?", id)
+	if quiz.ID == 0 {
+		return errors.New("quiz does not exist")
+	}
+	return nil
+}
+
+func findPreloadedQuiz(id int, quiz *models.Quiz) error {
 	database.Instance.Preload("Questions").Find(&quiz, "id = ?", id)
 	if quiz.ID == 0 {
 		return errors.New("quiz does not exist")
@@ -68,13 +76,13 @@ func GetQuiz(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
-		return c.Status(http.StatusBadRequest).JSON("Please ensuure that :id is an integer")
+		return c.Status(http.StatusBadRequest).JSON("Please make sure that :id is an integer")
 	}
 
 	// find by id
 	var quiz models.Quiz
 
-	if err := findQuiz(id, &quiz); err != nil {
+	if err := findPreloadedQuiz(id, &quiz); err != nil {
 		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
 
@@ -87,7 +95,7 @@ func UpdateQuiz(c *fiber.Ctx) error {
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
-		return c.Status(http.StatusBadRequest).JSON("Please ensuure that :id is an integer")
+		return c.Status(http.StatusBadRequest).JSON("Please make sure that :id is an integer")
 	}
 
 	// find quiz
@@ -97,43 +105,70 @@ func UpdateQuiz(c *fiber.Ctx) error {
 		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
 
-	//TODO check if author
-	//TODO how to update question
+	fmt.Println(1, quiz)
+
+	// check if author
+	if ok := isAuthor(c, &quiz); !ok {
+		return nil
+	}
 
 	if err := c.BodyParser(&quiz); err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(err.Error())
 	}
 
+	fmt.Println(2, quiz)
+
 	// save
-	database.Instance.Save(&quiz)
+	database.Instance.Omit("Questions").Updates(&quiz)
+	// replace questions
+	database.Instance.Session(&gorm.Session{FullSaveAssociations: true}).Model(&quiz).Association("Questions").Replace(&quiz.Questions)
+
+	fmt.Println(3, quiz)
 	return c.Status(http.StatusOK).JSON(quiz)
 }
 
+// compare ids of user and quiz.user
+func isAuthor(c *fiber.Ctx, quiz *models.Quiz) bool {
+	// get user
+	user, ok := c.Locals("user").(middleware.User)
+
+	if !ok {
+		c.SendStatus(http.StatusInternalServerError)
+		return false
+	}
+
+	// compare ids
+	if user.ID != quiz.UserID {
+		c.Status(http.StatusForbidden).SendString("Not authorized")
+		return false
+	}
+
+	return true
+}
+
 // delete a quiz
-// TODO foreign key constraint
 func DeleteQuiz(c *fiber.Ctx) error {
 	// parse id
 	id, err := c.ParamsInt("id")
 
 	if err != nil {
-		return c.Status(http.StatusBadRequest).JSON("Please ensuure that :id is an integer")
+		return c.Status(http.StatusBadRequest).JSON("Please make sure that :id is an integer")
 	}
 
-	//TODO check if author using middleware
-
-	//TODO is it necessary to find quiz first
+	// check if quiz exists
 	var quiz models.Quiz
 
-	fmt.Println(quiz)
-
 	if err := findQuiz(id, &quiz); err != nil {
-		return c.Status(http.StatusNotFound).JSON(err.Error())
+		return c.Status(http.StatusBadRequest).JSON(err.Error())
 	}
 
-	fmt.Println(quiz)
+	// check if author
+	if ok := isAuthor(c, &quiz); !ok {
+		return nil
+	}
 
-	if err := database.Instance.Delete(&quiz).Error; err != nil {
-		// TODO which status code to use
+	// delete using primary key
+	if err := database.Instance.Delete(quiz).Error; err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(err.Error())
 	}
 
