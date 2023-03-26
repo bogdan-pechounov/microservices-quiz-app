@@ -10,12 +10,13 @@ async function createProducer() {
 
   try {
     await producer.connect()
-    await producer.send({
-      topic: 'test-topic',
-      messages: [{ value: 'Hello KafkaJS user!' }],
-    })
+    console.log('connected', producer)
+    // await producer.send({
+    //   topic: 'test-topic',
+    //   messages: [{ value: 'Hello KafkaJS user!' }],
+    // })
 
-    await producer.disconnect()
+    // await producer.disconnect()
   } catch (err) {
     console.log("Couldn' connect to broker")
     console.error(err)
