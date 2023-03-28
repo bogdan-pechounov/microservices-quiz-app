@@ -8,6 +8,7 @@ import AuthDialog from '../auth/AuthDialog'
 import Logout from '../logout/Logout'
 import { useUser } from '../../redux/app/hooks'
 import { Link } from 'react-router-dom'
+import { Stack } from '@mui/material'
 
 export default function Navbar() {
   const { user } = useUser()
@@ -24,10 +25,21 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
+          {/* Main link */}
           <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
             <Link to='/'>Quiz</Link>
           </Typography>
-          {user ? <Logout /> : <AuthDialog />}
+          {/* Login or logout */}
+          {user ? (
+            <Stack direction='row' spacing={1}>
+              <Typography variant='h6' alignSelf='center'>
+                {user.username}
+              </Typography>
+              <Logout />
+            </Stack>
+          ) : (
+            <AuthDialog />
+          )}
         </Toolbar>
       </AppBar>
     </Box>

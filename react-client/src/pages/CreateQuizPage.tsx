@@ -9,7 +9,7 @@ import {
 } from '../redux/services/quizApi'
 import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import Question from '../components/question/Question'
+import QuestionForm from '../components/question/QuestionForm'
 
 export default function CreateQuiz() {
   const [name, setName] = useState('')
@@ -27,6 +27,14 @@ export default function CreateQuiz() {
     } catch (err) {
       console.log(err)
     }
+  }
+
+  function updateQuestion(question: CreateQuestion, i: number) {
+    setQuestions((questions) => [
+      ...questions.slice(0, i),
+      question,
+      ...questions.slice(i + 1),
+    ])
   }
   return (
     <Container>
@@ -52,19 +60,14 @@ export default function CreateQuiz() {
         <Stack gap={1}>
           {/* TODO what key to use if reordering */}
           {questions.map((question, i) => (
-            <Question
+            <QuestionForm
               key={i}
               question={question}
-              onChange={(question) =>
-                setQuestions((questions) => [
-                  ...questions.slice(0, i),
-                  question,
-                  ...questions.slice(i + 1),
-                ])
-              }
+              onChange={(question) => updateQuestion(question, i)}
             />
           ))}
         </Stack>
+        {/* Add new question */}
         <Button
           onClick={(e) =>
             setQuestions((questions) => [...questions, { question: '' }])
