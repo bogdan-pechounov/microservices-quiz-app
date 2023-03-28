@@ -3,39 +3,46 @@ const { Kafka } = require('kafkajs')
 const kafka = new Kafka({
   clientId: 'my-app',
   brokers: ['kafka-broker.kafka.svc.cluster.local:9092'],
+  // brokers: ['kafka-broker:9092'],
 })
 
-async function createProducer() {
-  const producer = kafka.producer()
-
+/**
+ * Send message in test topic
+ */
+async function test() {
   try {
-    await producer.connect()
-    console.log('connected', producer)
+    // admin
+    const admin = kafka.admin()
+    await admin.connect()
+    console.log('admin connected')
+    console.log('TOPICS', await admin.listTopics())
+    // // producer
+    // const producer = kafka.producer()
+    // await producer.connect()
+    // console.log('producer connected', producer)
+    // send
     // await producer.send({
     //   topic: 'test-topic',
     //   messages: [{ value: 'Hello KafkaJS user!' }],
     // })
+    // // await producer.disconnect()
 
-    // await producer.disconnect()
+    // // consumer
+    // const consumer = kafka.consumer({ groupId: 'test-group' })
+    // await consumer.connect()
+    // console.log('consumer connected', consumer)
+    // // receive
+    // await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
+    // await consumer.run({
+    //   eachMessage: async ({ topic, partition, message }) => {
+    //     console.log('CONSUME', {
+    //       value: message.value.toString(),
+    //     })
+    //   },
+    // })
   } catch (err) {
-    console.log("Couldn' connect to broker")
     console.error(err)
   }
 }
 
-async function createConsumer() {
-  const consumer = kafka.consumer({ groupId: 'test-group' })
-
-  await consumer.connect()
-  await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
-
-  await consumer.run({
-    eachMessage: async ({ topic, partition, message }) => {
-      console.log({
-        value: message.value.toString(),
-      })
-    },
-  })
-}
-
-createProducer()
+test()

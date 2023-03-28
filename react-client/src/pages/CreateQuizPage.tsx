@@ -5,11 +5,11 @@ import Stack from '@mui/material/Stack'
 import { useState } from 'react'
 import {
   CreateQuestion,
-  Question,
   useCreateQuizMutation,
 } from '../redux/services/quizApi'
 import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import Question from '../components/question/Question'
 
 export default function CreateQuiz() {
   const [name, setName] = useState('')
@@ -46,28 +46,25 @@ export default function CreateQuiz() {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           ></TextField>
-          <Button onClick={handleSubmit}>Create Quiz</Button>
         </Stack>
         {/* Questions */}
         <p>Questions</p>
-        <ul>
+        <Stack gap={1}>
           {/* TODO what key to use if reordering */}
           {questions.map((question, i) => (
-            <li key={i}>
-              <TextField
-                label='name'
-                value={question.question}
-                onChange={(e) =>
-                  setQuestions((questions) => [
-                    ...questions.slice(0, i),
-                    { question: e.target.value },
-                    ...questions.slice(i + 1),
-                  ])
-                }
-              ></TextField>
-            </li>
+            <Question
+              key={i}
+              question={question}
+              onChange={(question) =>
+                setQuestions((questions) => [
+                  ...questions.slice(0, i),
+                  question,
+                  ...questions.slice(i + 1),
+                ])
+              }
+            />
           ))}
-        </ul>
+        </Stack>
         <Button
           onClick={(e) =>
             setQuestions((questions) => [...questions, { question: '' }])
@@ -76,6 +73,8 @@ export default function CreateQuiz() {
           Add question
         </Button>
       </Box>
+      {/* Submit */}
+      <Button onClick={handleSubmit}>Create Quiz</Button>
     </Container>
   )
 }
