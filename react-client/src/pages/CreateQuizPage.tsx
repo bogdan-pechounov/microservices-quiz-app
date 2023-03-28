@@ -11,6 +11,9 @@ import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import QuestionForm from '../components/question/QuestionForm'
 
+/**
+ * Page for creating a quiz
+ */
 export default function CreateQuiz() {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')

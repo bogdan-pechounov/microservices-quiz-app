@@ -1,6 +1,6 @@
 import React from 'react'
 import { Quiz } from '../../redux/services/quizApi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Button,
   Card,
@@ -14,6 +14,7 @@ type QuizCardProps = {
 }
 
 function QuizCard({ quiz }: QuizCardProps) {
+  const navigate = useNavigate()
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
@@ -25,7 +26,9 @@ function QuizCard({ quiz }: QuizCardProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size='small'>Start Quiz</Button>
+        <Button size='small' onClick={() => navigate(`/quiz/${quiz.id}`)}>
+          Start Quiz
+        </Button>
       </CardActions>
     </Card>
   )
