@@ -1,10 +1,6 @@
-import { Link } from 'react-router-dom'
-import { useTypedSelector } from '../redux/app/hooks'
-import Button from '@mui/material/Button'
-import { useQuizzesQuery } from '../redux/services/quizApi'
 import CreateQuizButton from '../components/create-quiz/CreateQuizButton'
-import QuizList from '../components/quiz-list/QuizList'
 import { Box, Container } from '@mui/material'
+import QuizGrid from '../components/quiz-grid/QuizGrid'
 
 export default function HomePage() {
   return (
@@ -12,7 +8,7 @@ export default function HomePage() {
       <Box display='flex' justifyContent='center'>
         <CreateQuizButton />
       </Box>
-      <QuizList />
+      <QuizGrid />
     </Container>
   )
 }

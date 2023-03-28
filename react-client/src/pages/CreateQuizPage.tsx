@@ -77,7 +77,9 @@ export default function CreateQuiz() {
         </Button>
       </Box>
       {/* Submit */}
-      <Button onClick={handleSubmit}>Create Quiz</Button>
+      <Button onClick={handleSubmit} variant='contained'>
+        Create Quiz
+      </Button>
     </Container>
   )
 }
