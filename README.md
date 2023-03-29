@@ -1,4 +1,4 @@
-*In progress)
+(In progress)
 
 Microservices quiz application using Docker, Kubernetes and Skaffold. An NGINX Ingress controller routes requests to different services.
 
