@@ -17,3 +17,10 @@ beforeEach(async () => {
 
 //Set env
 process.env.JWT_SECRET = 'testing'
+
+//mock kafkajs
+require('./kafka')
+
+afterEach(() => {
+  jest.clearAllMocks()
+})

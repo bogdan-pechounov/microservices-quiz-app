@@ -1,14 +1,14 @@
 const request = require('supertest')
 const app = require('../src/app.js')
 
+const { testConnection } = require('../src/kakfka/connect.js')
+
 const {
   mockListTopics,
   mockAdminConnect,
   mockSend,
   mockSubscribe,
 } = require('./utils/kafka.js')
-
-const { testConnection } = require('../src/kakfka/connect.js')
 
 describe('App', () => {
   test('responds with a default message', async () => {
@@ -29,5 +29,10 @@ describe('App', () => {
       topic: 'test-topic',
       fromBeginning: true,
     })
+  })
+
+  test('kafkajs mock resets call count', async () => {
+    await testConnection()
+    expect(mockAdminConnect).toHaveBeenCalledTimes(1)
   })
 })
