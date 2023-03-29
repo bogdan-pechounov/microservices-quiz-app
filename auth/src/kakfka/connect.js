@@ -3,13 +3,12 @@ const { Kafka } = require('kafkajs')
 const kafka = new Kafka({
   clientId: 'my-app',
   brokers: ['kafka-broker.kafka.svc.cluster.local:9092'],
-  // brokers: ['kafka-broker:9092'],
 })
 
 /**
  * Send message in test topic
  */
-async function test() {
+async function testConnection() {
   try {
     // admin
     const admin = kafka.admin()
@@ -25,7 +24,7 @@ async function test() {
       topic: 'test-topic',
       messages: [{ value: 'Hello KafkaJS user!' }],
     })
-    // await producer.disconnect()
+    await producer.disconnect()
 
     // consumer
     const consumer = kafka.consumer({ groupId: 'test-group' })
@@ -35,13 +34,7 @@ async function test() {
     await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
     await consumer.run({
       eachMessage: async ({ topic, partition, message }) => {
-        console.log(
-          'CONSUME',
-          topic,
-          partition,
-          message,
-          message.value.toString()
-        )
+        console.log(topic, partition, message.value.toString())
       },
     })
   } catch (err) {
@@ -49,4 +42,4 @@ async function test() {
   }
 }
 
-test()
+module.exports = { testConnection }
