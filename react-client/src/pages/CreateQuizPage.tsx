@@ -9,7 +9,7 @@ import {
 } from '../redux/services/quizApi'
 import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import QuestionForm from '../components/question/QuestionForm'
+import QuestionForm from '../components/question-form/QuestionForm'
 
 /**
  * Page for creating a quiz
@@ -73,7 +73,10 @@ export default function CreateQuiz() {
         {/* Add new question */}
         <Button
           onClick={(e) =>
-            setQuestions((questions) => [...questions, { question: '' }])
+            setQuestions((questions) => [
+              ...questions,
+              { text: '', answers: [] },
+            ])
           }
         >
           Add question

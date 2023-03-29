@@ -2,9 +2,9 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: "kafka"
+  name: kafka
   labels:
-    name: "kafka"
+    name: kafka
 ---
 # create zookeeper service
 apiVersion: v1
@@ -92,7 +92,7 @@ spec:
         - name: KAFKA_LISTENERS
           value: PLAINTEXT://:9092
         - name: KAFKA_ADVERTISED_LISTENERS
-          value: PLAINTEXT://kafka-broker:9092
+          value: PLAINTEXT://kafka-broker.kafka.svc.cluster.local:9092
           # automatically create topics
         - name: KAFKA_CREATE_TOPICS
           value: 'test-topic:1:1'

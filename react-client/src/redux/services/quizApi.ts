@@ -1,7 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+export type Answer = {
+  id: number
+  text: string
+}
 export type CreateQuestion = {
-  question: string
+  text: string
+  answers: Answer[]
 }
 
 // after added to database

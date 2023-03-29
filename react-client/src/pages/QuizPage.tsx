@@ -24,7 +24,7 @@ export default function QuizPage() {
     return (
       <>
         <p>{'Question ' + currentIndex}</p>
-        <p>{currentQuestion.question}</p>
+        <p>{currentQuestion.text}</p>
       </>
     )
   }

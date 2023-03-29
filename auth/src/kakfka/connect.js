@@ -16,30 +16,34 @@ async function test() {
     await admin.connect()
     console.log('admin connected')
     console.log('TOPICS', await admin.listTopics())
-    // // producer
-    // const producer = kafka.producer()
-    // await producer.connect()
-    // console.log('producer connected', producer)
+    // producer
+    const producer = kafka.producer()
+    await producer.connect()
+    console.log('producer connected')
     // send
-    // await producer.send({
-    //   topic: 'test-topic',
-    //   messages: [{ value: 'Hello KafkaJS user!' }],
-    // })
-    // // await producer.disconnect()
+    await producer.send({
+      topic: 'test-topic',
+      messages: [{ value: 'Hello KafkaJS user!' }],
+    })
+    // await producer.disconnect()
 
-    // // consumer
-    // const consumer = kafka.consumer({ groupId: 'test-group' })
-    // await consumer.connect()
-    // console.log('consumer connected', consumer)
-    // // receive
-    // await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
-    // await consumer.run({
-    //   eachMessage: async ({ topic, partition, message }) => {
-    //     console.log('CONSUME', {
-    //       value: message.value.toString(),
-    //     })
-    //   },
-    // })
+    // consumer
+    const consumer = kafka.consumer({ groupId: 'test-group' })
+    await consumer.connect()
+    console.log('consumer connected')
+    // receive
+    await consumer.subscribe({ topic: 'test-topic', fromBeginning: true })
+    await consumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        console.log(
+          'CONSUME',
+          topic,
+          partition,
+          message,
+          message.value.toString()
+        )
+      },
+    })
   } catch (err) {
     console.error(err)
   }
