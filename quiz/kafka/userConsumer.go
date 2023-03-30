@@ -2,8 +2,11 @@ package kafka
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
+	"quiz/database"
+	"quiz/models"
 
 	"github.com/segmentio/kafka-go"
 )
@@ -45,6 +48,17 @@ func UserConsumer() {
 			break
 		}
 		fmt.Printf("message at topic/partition/offset %v/%v/%v: %s = %s\n", m.Topic, m.Partition, m.Offset, string(m.Key), string(m.Value))
+
+		var user models.User
+
+		fmt.Println(user)
+
+		json.Unmarshal(m.Value, &user)
+
+		fmt.Println(user)
+
+		// create user
+		database.Instance.Create(&user)
 	}
 
 	if err := r.Close(); err != nil {

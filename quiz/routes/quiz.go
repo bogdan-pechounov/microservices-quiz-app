@@ -34,7 +34,6 @@ func CreateQuiz(c *fiber.Ctx) error {
 
 	// set user fields
 	quiz.UserID = user.ID
-	quiz.Author = user.Username
 
 	// create quiz
 	database.Instance.Create(&quiz)

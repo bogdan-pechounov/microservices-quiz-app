@@ -21,7 +21,7 @@ func ConnectDb() {
 	fmt.Println("Connected to mysql database")
 
 	// create tables automatically
-	db.AutoMigrate(&models.Quiz{}, &models.Question{}, &models.Answer{})
+	db.AutoMigrate(&models.Quiz{}, &models.Question{}, &models.Answer{}, &models.User{})
 
 	Instance = db
 }
