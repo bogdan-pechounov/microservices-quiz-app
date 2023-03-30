@@ -1,7 +1,7 @@
 const request = require('supertest')
 const app = require('../src/app.js')
 
-const { testConnection } = require('../src/kakfka/test.js')
+const { testConnection } = require('../src/kakfka/testConnection.js')
 
 const {
   mockListTopics,

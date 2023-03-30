@@ -3,7 +3,6 @@ const { checkEnv } = require('./utils')
 
 //Settings
 const JWT_SECRET = checkEnv('JWT_SECRET')
-console.log(JWT_SECRET)
 
 const TOKEN_NAME = 'jwt'
 const cookie_options = {
