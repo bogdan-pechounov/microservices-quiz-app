@@ -1,3 +1,4 @@
+const { userCreated } = require('../kakfka/userProducer')
 const User = require('../models/user')
 const { hashPassword, verifyPassword } = require('../utils/password')
 const {
@@ -19,6 +20,8 @@ async function signUp(req, res) {
   //set cookie
   const jwtToken = createToken(user)
   setCookie(res, jwtToken)
+  //notify kafka
+  userCreated(user)
 
   res.status(201).send(user)
 }

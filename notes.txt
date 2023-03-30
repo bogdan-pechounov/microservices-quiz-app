@@ -16,6 +16,8 @@ gcloud builds submit --region=us-central1 --project=disco-ethos-380514 --config 
 gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1,_CLUSTER=autopilot-cluster-1 .
 
 skaffold dev -f skaffold.dev.yaml
+skaffold delete -f skaffold.dev.yaml
+
 kubectl create secret generic jwt-secret --from-literal=JWT_SECRET=secret
 require('crypto').randomBytes(64).toString('hex') 
 skaffold run --skip-tests

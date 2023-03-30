@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"quiz/database"
+	"quiz/kafka"
 	"quiz/middleware"
 	"quiz/routes"
 
@@ -32,6 +33,10 @@ func setupRoutes(app *fiber.App) {
 func main() {
 	// Connect to database
 	database.ConnectDb()
+
+	// Connect to Kafka
+	kafka.ListTopics()
+	kafka.UserConsumer()
 
 	// App
 	app := fiber.New()
