@@ -18,4 +18,4 @@ mongoose
   })
 
 //Connect to message broker
-require('./kakfka/connect')
+require('./kakfka/test')

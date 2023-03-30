@@ -95,7 +95,7 @@ spec:
           value: PLAINTEXT://kafka-broker.kafka.svc.cluster.local:9092
           # automatically create topics
         - name: KAFKA_CREATE_TOPICS
-          value: 'test-topic:1:1'
+          value: 'test-topic:1:1,user-created:1:1,user-deleted:1:1'
         - name: KAFKA_AUTO_CREATE_TOPICS_ENABLE
           value: 'true'
         - name: KAFKA_DELETE_TOPIC_ENABLE
