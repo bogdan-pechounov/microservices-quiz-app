@@ -18,4 +18,5 @@ mongoose
   })
 
 //Connect to message broker
-require('./kakfka/testConnection')
+const { testConnection } = require('./kakfka/testConnection')
+testConnection()
