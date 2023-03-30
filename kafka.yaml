@@ -13,7 +13,7 @@ metadata:
   labels:
     app: zookeeper-service
   name: zookeeper-service
-  namespace: kafka
+  # namespace: kafka
 spec:
   # type: NodePort
   ports:
@@ -30,7 +30,7 @@ metadata:
   labels:
     app: zookeeper
   name: zookeeper
-  namespace: kafka
+  # namespace: kafka
 spec:
   replicas: 1
   selector:
@@ -55,7 +55,7 @@ metadata:
   # labels:
   #   app: kafka-broker
   name: kafka-broker
-  namespace: kafka
+  # namespace: kafka
 spec:
   # headless service
   clusterIP: "None"
@@ -71,7 +71,7 @@ metadata:
   labels:
     app: kafka-broker
   name: kafka-broker
-  namespace: kafka
+  # namespace: kafka
 spec:
   # replicas: 
   serviceName: kafka-broker
