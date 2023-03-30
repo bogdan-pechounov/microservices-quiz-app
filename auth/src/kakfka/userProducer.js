@@ -6,15 +6,19 @@ const kafka = new Kafka({
 })
 
 async function userCreated(user) {
-  // producer
-  const producer = kafka.producer()
-  await producer.connect()
-  // send
-  await producer.send({
-    topic: 'user-created',
-    messages: [{ user }],
-  })
-  await producer.disconnect()
+  try {
+    // producer
+    const producer = kafka.producer()
+    await producer.connect()
+    // send
+    await producer.send({
+      topic: 'user-created',
+      messages: [{ value: JSON.stringify(user) }],
+    })
+    await producer.disconnect()
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 module.exports = { userCreated }
