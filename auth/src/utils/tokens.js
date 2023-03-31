@@ -7,6 +7,7 @@ const JWT_SECRET = checkEnv('JWT_SECRET')
 const TOKEN_NAME = 'jwt'
 const cookie_options = {
   secure: process.env.NODE_ENV === 'production',
+  sameSite: 'Strict',
   httpOnly: true,
   maxAge: 7 * 24 * 60 * 60 * 1000,
 }

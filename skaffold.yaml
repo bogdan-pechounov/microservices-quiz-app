@@ -47,6 +47,6 @@ manifests:
   - quiz/k8s/*.yaml
   # - jwt-secret.yaml created manually
   - ingress-srv.yaml
-  # - kafka.yaml
+  - kafka.yaml
 
 
