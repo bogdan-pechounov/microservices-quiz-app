@@ -16,8 +16,6 @@ FROM gcr.io/distroless/base-debian10
 
 COPY --from=build /quiz /quiz
 
-EXPOSE 8080
-
 USER nonroot:nonroot
 
 ENTRYPOINT ["/quiz"]

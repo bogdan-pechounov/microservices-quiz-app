@@ -73,7 +73,6 @@ metadata:
   name: kafka-broker
   namespace: kafka
 spec:
-  # replicas: 
   serviceName: kafka-broker
   selector:
     matchLabels:

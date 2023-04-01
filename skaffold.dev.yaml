@@ -35,5 +35,5 @@ manifests:
   - react-client/k8s/*.yaml
   - jwt-secret.yaml
   - ingress-srv.yaml
-  - kafka.yaml
+  # - kafka.yaml
 

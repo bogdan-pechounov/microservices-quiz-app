@@ -36,7 +36,7 @@ func main() {
 
 	// Connect to Kafka
 	kafka.ListTopics()
-	kafka.UserConsumer()
+	go kafka.UserConsumer()
 
 	// App
 	app := fiber.New()

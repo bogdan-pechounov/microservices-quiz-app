@@ -15,6 +15,7 @@ gcloud config set project disco-ethos-380514
 gcloud builds submit --region=us-central1 --project=disco-ethos-380514 --config cloudbuild.yaml
 gcloud builds submit --config=cloudbuild.yaml --substitutions=_ZONE=us-central1,_CLUSTER=autopilot-cluster-1 .
 
+kubectl apply -f kafka.yaml
 skaffold dev -f skaffold.dev.yaml
 skaffold delete -f skaffold.dev.yaml
 
