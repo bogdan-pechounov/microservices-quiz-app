@@ -1,5 +1,4 @@
 import React from 'react'
-import { Quiz } from '../../redux/services/quizApi'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   Button,
@@ -8,6 +7,7 @@ import {
   CardContent,
   Typography,
 } from '@mui/material'
+import { Quiz } from '../../types/quiz'
 
 type QuizCardProps = {
   quiz: Quiz

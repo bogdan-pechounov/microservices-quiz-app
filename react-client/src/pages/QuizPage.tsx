@@ -1,6 +1,8 @@
 import { useParams } from 'react-router-dom'
-import { Question, useQuizQuery } from '../redux/services/quizApi'
+import { useQuizQuery } from '../redux/services/quizApi'
 import { useState } from 'react'
+import QuestionSlide from '../components/question-slide/QuestionSlide'
+import { Question } from '../types/question'
 
 export default function QuizPage() {
   const { id } = useParams()
@@ -19,27 +21,12 @@ export default function QuizPage() {
     )
   }
 
-  function QuestionSlide() {
-    if (!currentQuestion) return <></>
-    return (
-      <>
-        <p>{'Question ' + currentIndex}</p>
-        <p>{currentQuestion.text}</p>
-      </>
-    )
-  }
-
   return (
     <div>
       <h1>{quiz?.name}</h1>
       <p>{quiz?.description}</p>
-      {/* <ul>
-        {quiz?.questions.map((question) => (
-          <li key={question.id}>{question.question}</li>
-        ))}
-      </ul> */}
       {/* Question */}
-      <QuestionSlide />
+      <QuestionSlide question={currentQuestion} />
       {/* Next */}
       <button onClick={nextQuestion}>Next</button>
     </div>

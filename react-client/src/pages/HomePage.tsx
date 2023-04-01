@@ -8,9 +8,7 @@ import QuizGrid from '../components/quiz-grid/QuizGrid'
 export default function HomePage() {
   return (
     <Container>
-      <Box display='flex' justifyContent='center'>
-        <CreateQuizButton />
-      </Box>
+      <CreateQuizButton />
       <QuizGrid />
     </Container>
   )

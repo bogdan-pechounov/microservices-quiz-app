@@ -7,7 +7,7 @@ function QuizGrid() {
   const { data: quizzes, isLoading, error } = useQuizzesQuery()
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} mt={1}>
       {quizzes?.map((quiz) => (
         <Grid key={quiz.id} item xs={12} md={6}>
           <QuizCard quiz={quiz} />

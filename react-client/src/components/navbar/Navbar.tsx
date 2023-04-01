@@ -7,11 +7,20 @@ import MenuIcon from '@mui/icons-material/Menu'
 import AuthDialog from '../auth/AuthDialog'
 import Logout from '../logout/Logout'
 import { useUser } from '../../redux/app/hooks'
-import { Link } from 'react-router-dom'
-import { Stack } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Stack,
+} from '@mui/material'
 
 export default function Navbar() {
   const { user } = useUser()
+  const navigate = useNavigate()
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position='static'>
@@ -32,9 +41,12 @@ export default function Navbar() {
           {/* Login or logout */}
           {user ? (
             <Stack direction='row' spacing={1}>
-              <Typography variant='h6' alignSelf='center'>
+              <Button
+                sx={{ color: '#fff' }}
+                onClick={() => navigate('/profile')}
+              >
                 {user.username}
-              </Typography>
+              </Button>
               <Logout />
             </Stack>
           ) : (

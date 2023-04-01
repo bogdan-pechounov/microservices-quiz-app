@@ -1,32 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-
-export type Answer = {
-  id: number
-  text: string
-}
-export type CreateQuestion = {
-  text: string
-  answers: Answer[]
-}
-
-// after added to database
-export type Question = CreateQuestion & {
-  id: number
-}
-
-export type CreateQuiz = {
-  name: string
-  description: string
-  questions: CreateQuestion[]
-}
-
-// add user fields
-export type Quiz = Omit<CreateQuiz, 'questions'> & {
-  id: number
-  userId: string
-  author: string
-  questions: Question[]
-}
+import { CreateQuiz, Quiz } from '../../types/quiz'
 
 // Define a service using a base URL and expected endpoints
 export const quizApi = createApi({

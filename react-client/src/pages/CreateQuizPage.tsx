@@ -3,13 +3,11 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import { useState } from 'react'
-import {
-  CreateQuestion,
-  useCreateQuizMutation,
-} from '../redux/services/quizApi'
+import { useCreateQuizMutation } from '../redux/services/quizApi'
 import { Container } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import QuestionForm from '../components/question-form/QuestionForm'
+import { CreateQuestion } from '../types/question'
 
 /**
  * Page for creating a quiz
@@ -25,20 +23,20 @@ export default function CreateQuiz() {
   async function handleSubmit() {
     try {
       const result = await createQuiz({ name, description, questions }).unwrap()
-      console.log(result)
       navigate('/')
     } catch (err) {
       console.log(err)
     }
   }
 
-  function updateQuestion(question: CreateQuestion, i: number) {
+  function updateQuestion(question: CreateQuestion, index: number) {
     setQuestions((questions) => [
-      ...questions.slice(0, i),
+      ...questions.slice(0, index),
       question,
-      ...questions.slice(i + 1),
+      ...questions.slice(index + 1),
     ])
   }
+
   return (
     <Container>
       <Box component='form' p={2}>

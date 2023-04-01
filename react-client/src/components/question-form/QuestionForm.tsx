@@ -1,7 +1,21 @@
-import { Box, Button, Collapse, List, Paper, TextField } from '@mui/material'
-import { CreateQuestion } from '../../redux/services/quizApi'
+import {
+  Box,
+  Button,
+  Collapse,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  List,
+  Paper,
+  Radio,
+  RadioGroup,
+  Stack,
+  TextField,
+} from '@mui/material'
 import { TransitionGroup } from 'react-transition-group'
 import { useState } from 'react'
+import { CreateQuestion } from '../../types/question'
+import { useEffect } from 'react'
 
 type QuestionProps = {
   question: CreateQuestion
@@ -9,29 +23,37 @@ type QuestionProps = {
 }
 
 function QuestionForm({ question, onChange }: QuestionProps) {
-  const [id, setId] = useState(0)
+  const [correctAnswer, setCorrectAnswer] = useState(0)
+
+  // change correct answer
+  useEffect(() => {
+    onChange({
+      ...question,
+      answers: question.answers.map((answer, i) => ({
+        ...answer,
+        isCorrect: correctAnswer === i,
+      })),
+    })
+  }, [correctAnswer])
 
   function generateEmptyAnswer() {
-    setId((id) => {
-      onChange({
-        text: '',
-        answers: [
-          ...question.answers,
-          {
-            id,
-            text: '',
-          },
-        ],
-      })
-      return id + 1
+    onChange({
+      ...question,
+      answers: [
+        ...question.answers,
+        {
+          text: '',
+          isCorrect: false,
+        },
+      ],
     })
   }
 
-  function updateAnswer(id: number, text: string) {
+  function updateAnswer(index: number, text: string) {
     onChange({
       ...question,
-      answers: question.answers.map((answer) =>
-        answer.id === id ? { ...answer, text } : answer
+      answers: question.answers.map((answer, i) =>
+        index === i ? { ...answer, text } : answer
       ),
     })
   }
@@ -50,15 +72,25 @@ function QuestionForm({ question, onChange }: QuestionProps) {
         <Button onClick={generateEmptyAnswer}>Add Answer</Button>
         {/* Answers */}
         <List>
+          {/* Animatation */}
           <TransitionGroup>
-            {question.answers.map((answer) => (
-              <Collapse key={answer.id}>
-                <TextField
-                  label={`Answer ${answer.id}`}
-                  value={answer.text}
-                  onChange={(e) => updateAnswer(answer.id, e.target.value)}
-                  fullWidth
-                />
+            {question.answers.map((answer, i) => (
+              <Collapse key={i}>
+                <Stack direction='row' mb={1}>
+                  <Radio
+                    checked={answer.isCorrect}
+                    onChange={() => setCorrectAnswer(i)}
+                    value={i}
+                    name='radio-buttons'
+                  />
+                  {/* Answer text */}
+                  <TextField
+                    label={`Answer ${i}`}
+                    value={answer.text}
+                    onChange={(e) => updateAnswer(i, e.target.value)}
+                    fullWidth
+                  />
+                </Stack>
               </Collapse>
             ))}
           </TransitionGroup>

@@ -62,7 +62,7 @@ func findQuiz(id int, quiz *models.Quiz) error {
 }
 
 func findPreloadedQuiz(id int, quiz *models.Quiz) error {
-	database.Instance.Preload("Questions").Find(&quiz, "id = ?", id)
+	database.Instance.Preload("Questions").Preload("Questions.Answers").Find(&quiz, "id = ?", id)
 	if quiz.ID == 0 {
 		return errors.New("quiz does not exist")
 	}
