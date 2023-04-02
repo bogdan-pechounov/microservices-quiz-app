@@ -25,9 +25,22 @@ export const quizApi = createApi({
       }),
       invalidatesTags: ['Quiz'], //invalidate cache with that tag
     }),
+    // delete quiz
+    deleteQuiz: builder.mutation<void, Quiz>({
+      query: (quiz) => ({
+        url: `/${quiz.id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Quiz'],
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useQuizzesQuery, useQuizQuery, useCreateQuizMutation } = quizApi
+export const {
+  useQuizzesQuery,
+  useQuizQuery,
+  useCreateQuizMutation,
+  useDeleteQuizMutation,
+} = quizApi

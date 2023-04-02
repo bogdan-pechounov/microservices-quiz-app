@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import CreateQuiz from './pages/CreateQuizPage'
 import QuizPage from './pages/QuizPage'
+import ProfilePage from './pages/ProfilePage'
 
 function App() {
   useMeQuery()
@@ -15,6 +16,7 @@ function App() {
         <Route path='/' element={<HomePage />} />
         <Route path='/quiz/:id' element={<QuizPage />}></Route>
         <Route path='/quiz/create' element={<CreateQuiz />} />
+        <Route path='/profile' element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   )
