@@ -2,13 +2,9 @@ import {
   Box,
   Button,
   Collapse,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
   List,
   Paper,
   Radio,
-  RadioGroup,
   Stack,
   TextField,
 } from '@mui/material'
@@ -34,7 +30,7 @@ function QuestionForm({ question, onChange }: QuestionProps) {
         isCorrect: correctAnswer === i,
       })),
     })
-  }, [correctAnswer])
+  }, [correctAnswer, question.answers])
 
   function generateEmptyAnswer() {
     onChange({
@@ -77,6 +73,7 @@ function QuestionForm({ question, onChange }: QuestionProps) {
             {question.answers.map((answer, i) => (
               <Collapse key={i}>
                 <Stack direction='row' mb={1}>
+                  {/* Select correct answer */}
                   <Radio
                     checked={answer.isCorrect}
                     onChange={() => setCorrectAnswer(i)}

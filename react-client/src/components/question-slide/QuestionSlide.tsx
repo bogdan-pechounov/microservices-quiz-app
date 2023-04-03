@@ -9,21 +9,27 @@ import {
 } from '@mui/material'
 import { Question } from '../../types/question'
 import { useState, FormEvent } from 'react'
+import { Answer } from '../../types/answer'
 
 type QuestionSlideProps = {
   question: Question
+  handleNext: () => void
+  onAnswer: (answer: Answer) => void
 }
 
-function QuestionSlide({ question }: QuestionSlideProps) {
+function QuestionSlide({ question, handleNext, onAnswer }: QuestionSlideProps) {
   const [selected, setSelected] = useState('')
   const [error, setError] = useState(false)
   const [helperText, setHelperText] = useState('')
+  const [submitted, setSubmitted] = useState(false) // to know when to display Next button
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    // find select answer based on string id
     const selectedAnswer = question.answers.find(
       (a) => a.id.toString() === selected
     )
+    // check if correct
     if (selectedAnswer?.isCorrect) {
       setError(false)
       setHelperText('Correct!')
@@ -31,16 +37,28 @@ function QuestionSlide({ question }: QuestionSlideProps) {
       setError(true)
       setHelperText('Incorrect...')
     }
+    setSubmitted(true)
+    // notify parent
+    if (selectedAnswer) onAnswer(selectedAnswer)
   }
 
   const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelected(e.target.value)
   }
 
+  const reset = () => {
+    setSelected('')
+    setError(false)
+    setHelperText('')
+    setSubmitted(false)
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <FormControl sx={{ m: 3 }} error={error} variant='standard'>
+        {/* Question */}
         <FormLabel id='demo-error-radios'>{question.text}</FormLabel>
+        {/* Select answer */}
         <RadioGroup
           aria-labelledby='demo-error-radios'
           name='quiz'
@@ -57,9 +75,21 @@ function QuestionSlide({ question }: QuestionSlideProps) {
           ))}
         </RadioGroup>
         <FormHelperText>{helperText}</FormHelperText>
-        <Button sx={{ mt: 1, mr: 1 }} type='submit' variant='outlined'>
-          Check Answer
-        </Button>
+        {/* Buttons */}
+        {submitted ? (
+          <Button
+            onClick={() => {
+              reset()
+              handleNext()
+            }}
+          >
+            Next
+          </Button>
+        ) : (
+          <Button type='submit' variant='outlined' disabled={selected === ''}>
+            Check Answer
+          </Button>
+        )}
       </FormControl>
     </form>
   )
