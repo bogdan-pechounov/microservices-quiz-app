@@ -1,8 +1,8 @@
-export type User = {
-  id: string
+export type UserLogin = {
   username: string
+  password: string
 }
 
-export type UserLogin = User & {
-  password: string
+export type User = Omit<UserLogin, 'password'> & {
+  id: string
 }
