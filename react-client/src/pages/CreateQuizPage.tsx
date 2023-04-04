@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
 import { useState } from 'react'
 import { useCreateQuizMutation } from '../redux/services/quizApi'
-import { Container } from '@mui/material'
+import { Container, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import QuestionForm from '../components/question-form/QuestionForm'
 import { CreateQuestion } from '../types/question'
@@ -43,13 +43,13 @@ export default function CreateQuiz() {
         <Stack spacing={2}>
           {/* Name */}
           <TextField
-            label='name'
+            label='Name'
             value={name}
             onChange={(e) => setName(e.target.value)}
           ></TextField>
           {/* Description */}
           <TextField
-            label='description'
+            label='Description'
             rows={3}
             multiline
             value={description}
@@ -57,7 +57,9 @@ export default function CreateQuiz() {
           ></TextField>
         </Stack>
         {/* Questions */}
-        <p>Questions</p>
+        <Typography variant='h6' mt={1} mb={1}>
+          Questions
+        </Typography>
         <Stack gap={1}>
           {/* TODO what key to use if reordering */}
           {questions.map((question, i) => (
@@ -81,9 +83,11 @@ export default function CreateQuiz() {
         </Button>
       </Box>
       {/* Submit */}
-      <Button onClick={handleSubmit} variant='contained'>
-        Create Quiz
-      </Button>
+      <Box m={1} display='flex' justifyContent='center'>
+        <Button onClick={handleSubmit} variant='contained'>
+          Create Quiz
+        </Button>
+      </Box>
     </Container>
   )
 }

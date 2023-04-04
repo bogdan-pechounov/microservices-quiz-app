@@ -14,7 +14,7 @@ function CreateQuizButton() {
 
   return (
     <Box
-      position='absolute'
+      position='fixed'
       bottom={10}
       left='50%'
       sx={{ transform: 'translate(-50%, 0)' }}
