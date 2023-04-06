@@ -16,9 +16,7 @@ public class ScoresApplication {
 	@Bean
 	CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate){
 		return args -> {
-			for (int i = 0; i < 10_000; i++) {
-				kafkaTemplate.send("test-topic", "Hello, kafka " + i);
-			}
+			kafkaTemplate.send("test-topic", "Hello, Spring Boot");
 		};
 	}
 

@@ -19,6 +19,11 @@ build:
       context: quiz
       docker:
         dockerfile: Dockerfile.dev
+    # scores
+    - image: scores-img
+      context: scores
+      docker:
+        dockerfile: Dockerfile
     # react-client
     - image: react-client-img
       context: react-client
@@ -32,6 +37,7 @@ manifests:
   rawYaml:
   - auth/k8s/*.yaml
   - quiz/k8s/*.yaml
+  - scores/k8s/*.yaml
   - react-client/k8s/*.yaml
   - jwt-secret.yaml
   - ingress-srv.yaml

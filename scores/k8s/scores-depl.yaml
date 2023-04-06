@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scores-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scores-pod-label
+  template:
+    metadata:
+      labels:
+        app: scores-pod-label
+    spec:
+      containers:
+        - name: scores-pod
+          image: scores-img
+          ports:
+            - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: scores-srv
+spec:
+  selector:
+    app: scores-pod-label
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000

@@ -10,7 +10,6 @@ public class KafkaTopicConfig {
 
   @Bean
   public NewTopic testTopic() {
-    System.out.println("I AM HERE");
     return TopicBuilder.name("test-topic").build();
   }
 }
